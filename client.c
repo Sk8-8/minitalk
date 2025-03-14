@@ -6,7 +6,7 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:09:30 by kguillem          #+#    #+#             */
-/*   Updated: 2025/03/14 19:59:49 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:36:08 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	atoi(char	*str)
 	num = 0;
 	i = 0;
 	sign = 1;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
 		if (str[i] == '-')
 		{
@@ -35,13 +35,23 @@ int	atoi(char	*str)
 	}
 	return (num * sign);
 }
-/*
+
 void	convsender(int pid, char ascii)
 {
-	kill(pid, SIGUSR1); // 1
-	kill(pid, SIGUSR2); // 0
+	int	i;
+
+	i = 0;
+	while (i < 8)
+	{
+		if ((ascii >> i) & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(4000);
+		i ++;
+	}
 }
-*/
+
 void	ending(int pid)
 {
 	int	i;
@@ -49,13 +59,13 @@ void	ending(int pid)
 	i = 0;
 	while (i < 8)
 	{
-		kill(pid, SIGUSR2); // 0
+		kill(pid, SIGUSR2);
 		i ++;
 		usleep(4000);
 	}
 }
 
-int	main(int argc,char **argv)
+int	main(int argc, char **argv)
 {
 	int	pid;
 	int	i;
