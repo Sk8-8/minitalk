@@ -6,7 +6,7 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:09:30 by kguillem          #+#    #+#             */
-/*   Updated: 2025/03/14 20:36:08 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/03/16 21:34:27 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,29 @@ int	atoi(char	*str)
 
 void	convsender(int pid, char ascii)
 {
-	int	i;
+	int	bit;
 
-	i = 0;
-	while (i < 8)
+	bit = 0;
+	while (bit < 8)
 	{
-		if ((ascii >> i) & 1)
+		if ((ascii >> bit) & 1)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
 		usleep(4000);
-		i ++;
+		bit ++;
 	}
 }
 
 void	ending(int pid)
 {
-	int	i;
+	int	bit;
 
-	i = 0;
-	while (i < 8)
+	bit = 0;
+	while (bit < 8)
 	{
 		kill(pid, SIGUSR2);
-		i ++;
+		bit ++;
 		usleep(4000);
 	}
 }
