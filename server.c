@@ -6,7 +6,7 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:00:41 by kguillem          #+#    #+#             */
-/*   Updated: 2025/03/16 21:13:02 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/03/17 21:21:25 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,26 @@
 #include <unistd.h>
 
 static char	*g_msg;
-// SIGUSR1
-// SIGUSR2
-// SIGINT
-// SIGTERM
-
+/*
 struct	sigaction {
 void	(*sa_handler) (int);
 void	(*sa_sigaction) (int, siginfo_t *, void *);
-sigset_t	SIGINFo;
+sigset_t	SIGINFO;
 int	sa_flags;
 void	(*sa_restorer) (void);
 };
-
+*/
 void	msghandler(char *g_msg)
 {
 	unsigned int	i;
 	unsigned int	bit;
+
+struct	sigaction {
+void	(*signal_handler) (int);
+void	(*sa_sigaction) (int, siginfo_t *, void *);
+int	SIGINFO;
+sigset_t	SIGINFO;
+void	(*sa_restorer) (void);
 
 	i = 0;
 	bit = 0;
@@ -39,17 +42,17 @@ void	msghandler(char *g_msg)
 	{
 		while (bit < 7)
 		{
-			g_msg[i] = g_msg[i] + signal_handler();	
+			g_msg[i] = g_msg[i] +
 			g_msg[i] << 1;
 			bit ++;
 		}
-		g_msg[i] = g_msg[i] + signal_handler();	
+		g_msg[i] = g_msg[i] +
 		bit = 0;
 		i ++;
 	}
 }
 
-void	signal_handler(int signum)
+void	signal_handler(int signum, siginfo_t *info, ucontext_t *uap)
 {
 	int	bit;
 	char ascii;
@@ -70,10 +73,6 @@ void	signal_handler(int signum)
 			bit ++;
 		}
 	}
-	if (signum == SIGINT || signum == SIGTERM)
-		;
-	else
-		ft_printf("signal received!\n%d\n", signum);
 }
 
 void	initialize(void)
