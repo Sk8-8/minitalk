@@ -6,7 +6,7 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:00:41 by kguillem          #+#    #+#             */
-/*   Updated: 2025/03/19 17:37:21 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/03/21 21:51:28 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@
 #include <stdio.h>
 
 static char	g_octet;
+
+struct	sigaction {
+	void	(*sa_handler) (int);
+	void	(*sa_sigaction) (int, siginfo_t *,  void *);
+	sigset_t	sa_mask;
+	int		sa_flags;
+	void	(*sa_restorer) (void);
+};
 
 void	signal_handler(int signum)
 {
