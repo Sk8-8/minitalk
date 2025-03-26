@@ -18,86 +18,88 @@
 
 static char	g_octet;
 
-struct	sigaction {
-	void	(*sa_handler) (int);
-	void	(*sa_sigaction) (int, siginfo_t *,  void *);
-	sigset_t	sa_mask;
-	int		sa_flags;
-	void	(*sa_restorer) (void);
-};
+char	*oneupper(char	*str)
+{
+	char	*expanded;
+	int				i;
+
+	i = 0;
+	while (str)
+		i ++;
+	if (str == NULL)
+	{
+		expanded = malloc(sizeof(char) * 2);
+		expanded[i + 1] = '\0';
+	}
+	else
+	{
+		expanded = malloc(sizeof(char) * (i + 1));
+		expanded[i + 1] = '\0';
+		while (i != 0)
+		{
+			expanded[i] = str[i];
+			i --;
+		}
+	}
+	free(str);
+	return (expanded);
+}
+
+void	bitoperation(int signum)
+{
+	if (signum == SIGUSR1)
+		g_octet += 1;
+	if (signum == SIGUSR2)
+		g_octet += 0;
+}
 
 void	signal_handler(int signum)
 {
-	if (signum == SIGUSR1)
-		g_octet = g_octet + 1;
-	if (signum == SIGUSR2)
-		g_octet = g_octet + 0;
-}
+	static char	*msg;
+	static int		i = 0;
+	static int		bit = 0;
 
-char	*oneupper(char	*msg)
-{
-	char	*oneupper;
-	int		i;
-
-	i = 0;
-	while (msg)
-		i ++;
-	oneupper = malloc(sizeof(char) * (i + 1));
-	if (oneupper == NULL)
-		return (NULL);
-	while (i != 0)
+	if (bit < 7)
 	{
-		oneupper[i] = msg[i];
-		i --;
+		if (bit == 0)
+			g_octet = '\0';
+		bitoperation(signum);
+		g_octet = g_octet << 1;
+		bit ++;
 	}
-	free(msg);
-	return (oneupper);
-}
-
-char	*msghandler(void)
-{
-	char	*msg;
-	int		i;
-	int		bit;
-
-	i = 0;
-	bit = 0;
-	g_octet = '?';
-	while (g_octet != '\0')
-	{
-		g_octet = '\0';
+	else
+	{	
+		bitoperation(signum);
 		msg = oneupper(msg);
-		while (bit < 7)
-		{
-			signal_handler();
-			g_octet = g_octet << 1;
-			bit ++;
-		}
-		signal_handler();
 		msg[i] = g_octet;
 		bit = 0;
-		i ++;
+		if (g_octet == '\0')
+		{
+			printf("%s\n", msg);
+			free(msg);
+			i = 0;
+		}
+		else
+			i ++;
 	}
-	return (msg);
-}
-
-void	initialize(void)
-{
-	int	pid;
-
-	pid = getpid();
-	printf("%d", pid);
-	pause();
 }
 
 int	main(void)
 {
-	char	*msg;
+	struct	sigaction	signalusr;
+	int	pid;
 
-	initialize();
+	pid = getpid();
+	printf("%d\n", pid);
+	signalusr.sa_handler = signal_handler;
+	signalusr.sa_flags = SA_SIGINFO;
+	sigemptyset(&signalusr.sa_mask);
+	sigemptyset(&signalusr.sa_mask);
+	sigaction(SIGUSR1, &signalusr, NULL);
+	sigaction(SIGUSR2, &signalusr, NULL);
 	while (1)
-	{
-		msg = msghandler();
-		printf("%s\n", msg);
-	}
+		pause();
+	exit(1);
+	return(0);
 }
+
