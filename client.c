@@ -6,13 +6,14 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:09:30 by kguillem          #+#    #+#             */
-/*   Updated: 2025/03/18 16:43:54 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/03/27 00:34:48 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
 #include <signal.h>
 #include <unistd.h>
+#include <stdio.h>
 
 int	atoi(char	*str)
 {
@@ -43,11 +44,11 @@ void	convsender(int pid, char ascii)
 	bit = 0;
 	while (bit < 8)
 	{
-		if ((ascii >> bit) & 1)
+		if ((ascii << bit) & 128)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(4000);
+		usleep(800);
 		bit ++;
 	}
 }
@@ -61,7 +62,7 @@ void	ending(int pid)
 	{
 		kill(pid, SIGUSR2);
 		bit ++;
-		usleep(4000);
+		usleep(800);
 	}
 }
 
@@ -71,7 +72,10 @@ int	main(int argc, char **argv)
 	int	i;
 
 	if (argc != 3)
+	{
+		printf("invalid number of args");
 		return (0);
+	}
 	else
 	{
 		pid = atoi(argv[1]);
