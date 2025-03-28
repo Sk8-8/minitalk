@@ -6,7 +6,7 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:00:41 by kguillem          #+#    #+#             */
-/*   Updated: 2025/03/27 00:00:13 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:37:22 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include "ft_printf/ft_printf.h"
 
 static char	g_octet;
 
@@ -59,7 +59,7 @@ void	bitoperation(int signum)
 
 int	endmsg(char	*msg)
 {
-	printf("%s\n", msg);
+	ft_printf("%s\n", msg);
 	free(msg);
 	return (0);
 }
@@ -99,7 +99,7 @@ int	main(void)
 	int					pid;
 
 	pid = getpid();
-	printf("%d\n", pid);
+	ft_printf("%d\n", pid);
 	signalusr.sa_handler = signal_handler;
 	signalusr.sa_flags = 0;
 	sigemptyset(&signalusr.sa_mask);

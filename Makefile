@@ -6,7 +6,7 @@
 #    By: kguillem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 19:14:46 by kguillem          #+#    #+#              #
-#    Updated: 2025/03/26 19:14:50 by kguillem         ###   ########.fr        #
+#    Updated: 2025/03/28 21:29:04 by kguillem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CCFLAGS = -Wall -Wextra -Werror
 #include directory == dossier includes
 INC_DIR = .
 #preprocessor flag
-CPPFLAGS = -I $(INC_DIR) -I printf -I printf/libft
+CPPFLAGS = -I $(INC_DIR) -I ft_printf -I ft_printf/libft
 #rm
 RM = rm -f
 #archive
@@ -38,25 +38,25 @@ all: $(NAME)
 $(NAME): server client
 
 server:    server.o
-        @make -C printf
-    $(CC) $(CCFLAGS) -g server.o printf/libftprintf.a printf/libft/libft.a -o server
+	@make -C ft_printf
+	$(CC) $(CCFLAGS) -g server.o ft_printf/libftprintf.a ft_printf/libft/libft.a -o server
 
 client:    client.o
-	@make -C printf
-    $(CC) $(CCFLAGS) -g client.o printf/libftprintf.a printf/libft/libft.a -o client
+	@make -C ft_printf
+	$(CC) $(CCFLAGS) -g client.o ft_printf/libftprintf.a ft_printf/libft/libft.a -o client
 # "%.o" rule compie .c file into corresponding .o file
 # "%" is a wildcard for "name of the files without extension"
 # $@ = target, here target = .o "$<" = first dependencies here = .c
 %.o: %.c
-    $(CC) $(CPPFLAGS) $(CCFLAGS) -o $@ -c $<
+	$(CC) $(CPPFLAGS) $(CCFLAGS) -o $@ -c $<
 #clean delete all .o files
 clean:
-    $(RM) $(OBJS)
-    @make -C printf clean
+	$(RM) $(OBJS)
+	@make -C ft_printf clean
 #after executing clean delete the lib
 fclean: clean
-    $(RM) server client
-    @make -C printf fclean
+	$(RM) server client
+	@make -C ft_printf fclean
 #delete everything then re create it
 re: fclean all
 #phony targets

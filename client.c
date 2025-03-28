@@ -6,14 +6,14 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:09:30 by kguillem          #+#    #+#             */
-/*   Updated: 2025/03/27 00:34:48 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:35:41 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
 #include <signal.h>
 #include <unistd.h>
-#include <stdio.h>
+#include "ft_printf/ft_printf.h"
 
 int	atoi(char	*str)
 {
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		printf("invalid number of args");
+		ft_printf("invalid number of args");
 		return (0);
 	}
 	else
