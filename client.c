@@ -6,7 +6,7 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:09:30 by kguillem          #+#    #+#             */
-/*   Updated: 2025/03/28 19:35:41 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/03/29 15:25:19 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include "ft_printf/ft_printf.h"
 
-int	atoi(char	*str)
+int	clientatoi(char	*str)
 {
 	int	num;
 	int	i;
@@ -78,7 +78,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		pid = atoi(argv[1]);
+		pid = clientatoi(argv[1]);
 		i = 0;
 		while (argv[2][i] != '\0')
 		{

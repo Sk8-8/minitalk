@@ -6,7 +6,7 @@
 #    By: kguillem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 19:14:46 by kguillem          #+#    #+#              #
-#    Updated: 2025/03/28 21:29:04 by kguillem         ###   ########.fr        #
+#    Updated: 2025/03/29 15:34:44 by kguillem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,6 @@ INC_DIR = .
 CPPFLAGS = -I $(INC_DIR) -I ft_printf -I ft_printf/libft
 #rm
 RM = rm -f
-#archive
-ARNAME = ar rcs $(NAME)
-#index generator for the archive so the linkers could find ft and variables
-RANNAME = ranlib $(NAME)
 
 #first rull is always "all" she is calling $(NAME)
 all: $(NAME)
