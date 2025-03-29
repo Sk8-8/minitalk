@@ -6,7 +6,7 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:00:41 by kguillem          #+#    #+#             */
-/*   Updated: 2025/03/28 19:37:22 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/03/29 17:42:35 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,31 @@
 
 static char	g_octet;
 
-char    *oneupper(char    *str)
+char	*oneupper(char *str)
 {
-    char    *expanded;
-    int        i;
+	char	*expanded;
+	int		i;
 
-    i = 0;
-    if (str == NULL)
-    {
-        expanded = malloc(sizeof(char) * 2);
-        expanded[i + 1] = '\0';
-    }
-    else
-    {
-        while (str[i] != '\0')
-          i ++;
-        expanded = malloc(sizeof(char) * (i + 2));
-        expanded[i + 1] = '\0';
-        while (i - 1 != 0)
-        {
-            expanded[i - 1] = str[i - 1];
-            i --;
-        }
-        expanded[i - 1] = str[i - 1];
-    }
-    return (expanded);
+	i = 0;
+	if (str == NULL)
+	{
+		expanded = malloc(sizeof(char) * 2);
+		expanded[i + 1] = '\0';
+	}
+	else
+	{
+		while (str[i] != '\0')
+			i ++;
+		expanded = malloc(sizeof(char) * (i + 2));
+		expanded[i + 1] = '\0';
+		while (i - 1 != 0)
+		{
+			expanded[i - 1] = str[i - 1];
+			i --;
+		}
+		expanded[i - 1] = str[i - 1];
+	}
+	return (expanded);
 }
 
 void	bitoperation(int signum)
@@ -77,7 +77,6 @@ void	signal_handler(int signum)
 		bitoperation(signum);
 		g_octet = g_octet << 1;
 		bit ++;
-		//printf("goctet boucke %c\n", g_octet);
 	}
 	else
 	{
@@ -85,7 +84,6 @@ void	signal_handler(int signum)
 		msg = oneupper(msg);
 		msg[i] = g_octet;
 		bit = 0;
-		//printf("%c\n", g_octet);
 		if (g_octet == '\0')
 			i = endmsg(msg);
 		else
@@ -108,5 +106,5 @@ int	main(void)
 	while (1)
 		pause();
 	exit(1);
-		return (0);
+	return (0);
 }
